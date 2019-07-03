@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class ModeloCliente extends Thread {
     ControladorCliente controlador;
-    final int PUERTO = 40080;
+    final int PUERTO = 5050;
     final String HOST = "localhost";
     Socket socket;
     BufferedReader br;

@@ -8,7 +8,7 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.ModeloCliente;
-import vista.IVista;
+import vista.GUI;
 
 /**
  *
@@ -16,10 +16,11 @@ import vista.IVista;
  */
 public class ControladorCliente implements ActionListener {
 
-    IVista vista;
+    GUI vista;
+    //IVista vista;
     ModeloCliente modelo;
 
-    public ControladorCliente(IVista vista, ModeloCliente modelo) {
+    public ControladorCliente(GUI vista, ModeloCliente modelo) {
         this.vista = vista;
         this.modelo = modelo;
     }
@@ -36,16 +37,13 @@ public class ControladorCliente implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()) {
-            case IVista.ENVIAR:
-                vista.agnadirMensajeATrasiego("Enviando mensaje al Servidor...");
-                vista.deshabilitarEnviar();
-                modelo.enviarMensaje(vista.getMensajeAEnviar());
-                vista.habilitarEnviar();
-                vista.agnadirMensajeATrasiego("Mensaje enviado.");
-                vista.borrarTextoAEnviar();
-                break;
+        if(e.getSource() == vista.btnCrearCampos){
+            vista.spVariables.setBounds(10, 50, 100, 300);
+            vista.getContentPane().add(vista.spVariables);
+        } else if(e.getSource() == vista.btnMostrarResultados){
+            
         }
+       
     }
 
     public void agnadirMensajeATrasiego(String mensaje) {
