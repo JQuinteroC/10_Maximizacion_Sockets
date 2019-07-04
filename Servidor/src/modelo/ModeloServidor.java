@@ -82,7 +82,7 @@ public class ModeloServidor extends Thread{
     @Override
     public void run(){
         while(true){
-            String mensaje = recibirMensaje();
+//            String mensaje = recibirMensaje();
            // controlador.agnadirMensajeATrasiego("El cliente dice: " + mensaje);
         }
     }
