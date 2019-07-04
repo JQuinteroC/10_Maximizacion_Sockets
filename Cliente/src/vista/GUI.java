@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -20,25 +22,23 @@ public class GUI extends JFrame {
     ControladorCliente controlador;
     public JTextField txtX = new JTextField();
     public JTextField txtY = new JTextField();
+    public JTextField txtM = new JTextField();
     public JTextField txtNumIne = new JTextField();
-    public JLabel lblTitulo = new JLabel("Algebra líneal. Max/Min");
+    public JLabel lblTitulo = new JLabel("Álgebra lineal. Max/Min");
     public JLabel lblX = new JLabel("Coef X:");
     public JLabel lblY = new JLabel("Coef Y:");
     public JLabel lblNumIne = new JLabel("Número de inecuaciones:");
-    public JLabel lblVarZ = new JLabel("Variables de Z:");
+    public JLabel lblMaxMin = new JLabel("max-min:");
     public JScrollPane spValores = new JScrollPane();
-    public JScrollPane spVariables = new JScrollPane();
     public JScrollPane spInecuaciones = new JScrollPane();
-    public JScrollPane spDesarollo = new JScrollPane(); 
+    public JScrollPane spResultado = new JScrollPane();
     public JButton btnCrearCampos = new JButton("Crear campos de inecuaciones");
     public JButton btnMostrarResultados = new JButton("Mostrar resultado");
     public JTextField txtEcuaciones[][];
-    public JTextField txtVariables[];
-    public JLabel lblNomEcu[];
-    public JLabel lblIgual[];
-    public JTextArea txtProceso = new JTextArea();      
+    public JRadioButton rbtnEcuaciones[][];
+    public ButtonGroup grpRbtn[];
+    public JTextArea txtProceso = new JTextArea();
 
-    
     public void mostrar() {
         lblTitulo.setFont(new java.awt.Font("Verdana", 1, 25));
         lblTitulo.setBounds(215, 5, 350, 45);
@@ -46,21 +46,24 @@ public class GUI extends JFrame {
         spValores.setBounds(20, 50, 720, 50);
 
         lblX.setBounds(10, 10, 40, 25);
-        txtX.setBounds(55, 10, 50, 25);
+        txtX.setBounds(55, 10, 30, 25);
 
-        lblY.setBounds(120, 10, 40, 25);
-        txtY.setBounds(165, 10, 50, 25);
+        lblY.setBounds(100, 10, 40, 25);
+        txtY.setBounds(145, 10, 30, 25);
 
-        lblNumIne.setBounds(230, 10, 150, 25);
-        txtNumIne.setBounds(380, 10, 50, 25);
-        btnCrearCampos.setBounds(460, 8, 240, 30);
-        lblVarZ.setBounds(10, 10, 100, 25);
+        lblNumIne.setBounds(190, 10, 150, 25);
+        txtNumIne.setBounds(340, 10, 30, 25);
 
-        setSize(780, 600);
+        lblMaxMin.setBounds(380, 10, 60, 25);
+        txtM.setBounds(440, 10, 30, 25);
+
+        btnCrearCampos.setBounds(480, 8, 220, 30);
+
+        setSize(780, 580);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Factorial");
+        setTitle("Álgebra lineal");
     }
 
     public GUI() {
@@ -83,12 +86,12 @@ public class GUI extends JFrame {
         frValores.add(txtY);
         frValores.add(lblNumIne);
         frValores.add(txtNumIne);
+        frValores.add(lblMaxMin);
+        frValores.add(txtM);
         frValores.add(btnCrearCampos);
 
-        c.add(spVariables);
         c.add(spInecuaciones);
-        c.add(spDesarollo);
-
+        c.add(spResultado);
 //        btnCrearCampos.addActionListener(this);
     }
 
@@ -99,7 +102,7 @@ public class GUI extends JFrame {
     public void deshabilitarEnviar() {
         //jButtonEnviar.setEnabled(false);
     }
-    
+
     public void agnadirMensajeATrasiego(String mensaje) {
         //jTextAreaTrasiego.append(mensaje + "\n");
     }
@@ -117,8 +120,8 @@ public class GUI extends JFrame {
     }
 
     public void inicializar() {
-        //jButtonEnviar.setActionCommand(ENVIAR);
-        //jButtonEnviar.addActionListener(controlador);
+        btnCrearCampos.addActionListener(controlador);
+        btnMostrarResultados.addActionListener(controlador);
     }
 
     public String getMensajeAEnviar() {
