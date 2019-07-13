@@ -27,6 +27,9 @@ public class GUI extends JFrame {
     public JLabel lblTitulo = new JLabel("Álgebra lineal. Max/Min");
     public JLabel lblX = new JLabel("Coef X:");
     public JLabel lblY = new JLabel("Coef Y:");
+    public JLabel lblEcX = new JLabel("Coef X:");
+    public JLabel lblEcY = new JLabel("Coef Y:");
+    public JLabel lblEcN = new JLabel("Núm.");
     public JLabel lblNumIne = new JLabel("Número de inecuaciones:");
     public JLabel lblMaxMin = new JLabel("max-min:");
     public JScrollPane spValores = new JScrollPane();
@@ -59,7 +62,7 @@ public class GUI extends JFrame {
 
         btnCrearCampos.setBounds(480, 8, 220, 30);
 
-        setSize(780, 580);
+        setSize(770, 680);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
