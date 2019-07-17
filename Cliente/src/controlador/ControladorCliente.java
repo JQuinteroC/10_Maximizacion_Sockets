@@ -10,7 +10,12 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,7 +32,14 @@ public class ControladorCliente implements ActionListener {
 
     GUI vista;
     boolean mod;
+    String solicitud;
+    String tem;
+    String[] puntos;
+    String[] comprobar;
     int x, y;
+    int numIne = 0;
+    //se guardan los puntos para mandarselos a la parte logica    
+    ArrayList<String> c = new ArrayList();
     ModeloCliente modelo;
 
     public ControladorCliente(GUI vista, ModeloCliente modelo) {
@@ -39,11 +51,6 @@ public class ControladorCliente implements ActionListener {
     public void arrancar() {
         vista.hacerVisible();
         vista.inicializar();
-        vista.agnadirMensajeATrasiego("conectando con el Servidor...");
-        modelo.conectarConElServidor();
-        vista.agnadirMensajeATrasiego("Conectado al servidor.");
-        modelo.crearFlujos();
-        modelo.start();
     }
 
     @Override
@@ -84,9 +91,9 @@ public class ControladorCliente implements ActionListener {
             } else {
                 x = Integer.parseInt(vista.txtX.getText());
                 y = Integer.parseInt(vista.txtY.getText());
-                int numIne = Integer.parseInt(vista.txtNumIne.getText());
+                numIne = Integer.parseInt(vista.txtNumIne.getText());
 
-                if (numIne >= 2) {
+                if (numIne >= 2 && numIne <= 20) {
                     // Contenedor
                     Container frInecuaciones = new Container();
                     frInecuaciones.setLayout(null);
@@ -180,33 +187,66 @@ public class ControladorCliente implements ActionListener {
                     frInecuaciones.add(vista.lblEcN);
                     vista.lblEcN.setBounds(310, 5, 45, 25);
                 } else {
-                    JOptionPane.showMessageDialog(null, "El número de inecuación no puede ser menor que 2");
+                    JOptionPane.showMessageDialog(null, "El número de inecuación no puede ser menor que 2 ni mayor a 20");
                     vista.txtNumIne.requestFocus();
                 }
             }
         } else if (e.getSource() == vista.btnMostrarResultados) {
-            /* Unir todas las inecuaciones en un strign y separarlas por un identificador
+            /* Unir todas las inecuaciones en un string y separarlas por un identificador
             por ejemplo ";" */
-            modelo.enviarMensaje("");
-            
-            
-            String res = modelo.recibirMensaje();
-            /* Des-serializar la imagen y ponerla en un label, poner todas las inceuaciones
-            con sus resultados, y poner con respecto a la necesidad el usuario el maximo o 
-            el minimo*/
+            solicitud = vista.txtM.getText();
+            c.add(vista.txtX.getText() + "," + vista.txtY.getText() + "," + solicitud);
+
+            for (int i = 0; i < numIne; i++) {
+                // Selección de tipo de inequidad
+                for (Enumeration et = vista.grpRbtn[i].getElements(); et.hasMoreElements();) {
+                    JRadioButton b = (JRadioButton) et.nextElement();
+                    if (b.getModel() == vista.grpRbtn[i].getSelection()) {
+                        solicitud = b.getText();
+                    }
+                }
+                c.add(vista.txtEcuaciones[i][0].getText() + "," + vista.txtEcuaciones[i][1].getText() + "," + solicitud + "," + vista.txtEcuaciones[i][2].getText());
+            }
+            c.add("0");
+            modelo.setC(c);
+            try {
+                tem = modelo.Connect();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            puntos = SepararPuntos(tem, 0);
+            comprobar = SepararPuntos(tem, 1);
+           
+            /////////////////////////////////////////////////////////////////////////////            
             Container frSolucion = new Container();
             frSolucion.setLayout(null);
             frSolucion.setPreferredSize(new Dimension(700, 190));
-
+            
+             /* Poner texto en el container frSolucion
+            Llenar_puntos(puntos);
+            Llenar_Evaluar(evaluar);
+             */
+            Poner_Imagen();
+            // Panel de respuestas Dar.repaint();
+            
+            
             vista.add(vista.spResultado);
             vista.spResultado.setBounds(20, 270, 720, 250);
 
             vista.spResultado.getViewport().add(frSolucion);
         }
-
     }
 
-    public void agnadirMensajeATrasiego(String mensaje) {
-        vista.agnadirMensajeATrasiego(mensaje);
+    public void Poner_Imagen() {
+        ImageIcon icon = new ImageIcon("Grafica.jpg");
+        Image scaleImage = icon.getImage().getScaledInstance(517, 401, Image.SCALE_DEFAULT);
+        Icon iconx = new ImageIcon(scaleImage);
+        // LAbel donde mostrar la imagen --- foto_label.setIcon(iconx);
+    }
+    
+    public String[] SepararPuntos(String cadena,int x) {
+        String split0[] = cadena.split("::");
+        String split1[] = split0[x].split(":");
+        return split1;
     }
 }

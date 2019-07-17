@@ -35,7 +35,6 @@ public class Main {
         
         vista.mostrar();
         vista.setControlador(controlador);
-        modelo.setControlador(controlador);
         
         controlador.arrancar();
     }
