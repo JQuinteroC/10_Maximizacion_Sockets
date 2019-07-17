@@ -1,0 +1,34 @@
+public void Llenar_puntos(String[] puntos){
+        for (int i = 0; i < puntos.length; i++) {
+            text4.add(new JLabel());
+            text4.get(i).setBounds(50, 10 + 27 * i, 80, 25);
+            text4.get(i).setText((char)(64+(i+1))+"=");
+            jPanel2.add(text4.get(i));
+        }
+        for (int i = 1; i <  puntos.length; i++) {
+            text5.add(new JLabel());
+            text5.get(i-1).setBounds(80, 10 + 27 * (i-1), 200, 25);
+            text5.get(i-1).setText(puntos[i]);
+            jPanel2.add(text5.get(i-1));
+        }
+      
+    }
+    public void Llenar_Evaluar(String[] evaluar){
+        for (int i = 0; i < evaluar.length; i++) {
+            text6.add(new JLabel());
+            text6.get(i).setBounds(50, 10 + 27 * i, 80, 25);
+            text6.get(i).setText((char)(64+(i+1))+"=");
+            jPanel3.add(text6.get(i));
+        }
+        for (int i = 0; i <  evaluar.length; i++) {
+            text7.add(new JLabel());
+            text7.get(i).setBounds(80, 10 + 27 * (i), 2000, 25);
+            text7.get(i).setText(evaluar[i]);
+            jPanel3.add(text7.get(i));
+        }
+    }
+// arraylist puntos que forman region y evaluacion de funcion objetivo   
+        ArrayList<JLabel> text4 = new ArrayList();
+        ArrayList<JLabel> text5 = new ArrayList();
+        ArrayList<JLabel> text6 = new ArrayList();
+        ArrayList<JLabel> text7 = new ArrayList();
