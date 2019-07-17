@@ -29,6 +29,7 @@ import modelo.ModeloServidor;
  * @author <a href="https://github.com/JQuinteroC">JQuinteroC</a>
  */
 public class ControladorServidor {
+
     public Scanner sc = new Scanner(System.in);
 
     public Socket cliente = null;
@@ -82,6 +83,8 @@ public class ControladorServidor {
                 }
             }
 
+            //
+            Graficar gg = new Graficar();
             //quita el 0 restante del arraylist para que mateo no estalle
             c.remove(c.size() - 1);
 
@@ -95,7 +98,8 @@ public class ControladorServidor {
             xyx = SepararPuntos(meow);
             salida.println(meow);
             salida.println("0");
-            /// poner con la nueva clase graficarv.takePhoto(metod.inf,xyx.get(0), xyx.get(1),metod.xdd,metod.xdd2);
+
+            gg.takePhoto(metod.inf,xyx.get(0), xyx.get(1),metod.xdd,metod.xdd2);
             //toma la imagen y la manda al user
             SendImg();
             entrada.close();
@@ -111,7 +115,7 @@ public class ControladorServidor {
     }
 
     public void SendImg() {
-        localFile = new File("GraficaPRO.jpg");
+        localFile = new File("Grafica.jpg");
         try {
             buffIn = new BufferedInputStream(new FileInputStream(localFile));
             buffOut = new BufferedOutputStream(cliente.getOutputStream());

@@ -17,14 +17,58 @@ import javax.imageio.ImageIO;
  *
  * @author <a href="https://github.com/JQuinteroC">JQuinteroC</a>
  */
-public class Graficar {
+public class Graficar extends javax.swing.JFrame{
+
+    private javax.swing.JPanel p;
+    File fichero = new File("Grafica.jpg");
+    String formato = "jpg";
+    BufferedImage imagen;
+    Graphics2D g2d;
+    Graphics g;
+
+    Graficar() {
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(500, 500));
+        
+        p = new javax.swing.JPanel();
+        p.setBackground(new java.awt.Color(255, 255, 255));
+        javax.swing.GroupLayout pLayout = new javax.swing.GroupLayout(p);
+        p.setLayout(pLayout);
+        pLayout.setHorizontalGroup(
+                pLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pLayout.setVerticalGroup(
+                pLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 500, Short.MAX_VALUE)
+        );
+        
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 481, Short.MAX_VALUE)
+                        .addGap(0, 19, Short.MAX_VALUE))
+                    .addComponent(p, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(p, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addContainerGap())
+        );
+
+        pack();
+    }
 
     public void takePhoto(int inf, double[] xdouble, double[] ydouble, double[] xlinedouble, double[] ylinedouble) {
-        File fichero = new File("GraficaPRO.jpg");
-        String formato = "jpg";
-        BufferedImage imagen;
-        Graphics2D g2d;
-        Graphics g;
 
         int x[] = new int[xdouble.length];
         int y[] = new int[ydouble.length];
@@ -248,9 +292,9 @@ public class Graficar {
 //coordenadas y , n es el numero de puntos que define la figura
             int n = xs_Solucion.length;
 
-            g.setColor(Color.BLUE);
+            g.setColor(new Color(56,170,235));
 
-            g2d.setColor(Color.BLUE);
+            g2d.setColor(new Color(56,170,235));
 
             g.fillPolygon(xs_Solucion, ys_Solucion, n);
 
