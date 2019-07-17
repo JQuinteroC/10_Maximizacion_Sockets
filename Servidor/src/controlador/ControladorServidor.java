@@ -95,6 +95,7 @@ public class ControladorServidor {
             xyx = SepararPuntos(meow);
             salida.println(meow);
             salida.println("0");
+            /// poner con la nueva clase graficarv.takePhoto(metod.inf,xyx.get(0), xyx.get(1),metod.xdd,metod.xdd2);
             //toma la imagen y la manda al user
             SendImg();
             entrada.close();
